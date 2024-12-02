@@ -13,7 +13,6 @@ public class Youtubevideo {
     private WebDriver driver;
 
     public void setUp() {
-        // This is like a key, location of ChromeDriver file
         System.setProperty("webdriver.chrome.driver", "resources/chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
