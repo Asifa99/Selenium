@@ -41,7 +41,7 @@ public class Youtubevideo {
             WebElement durationFilter = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//yt-formatted-string[text()='Over 20 minutes']")));
             durationFilter.click();
 
-            Thread.sleep(5000);  // Wait for 5 seconds after applying filters
+            Thread.sleep(5000);
 
         }
         catch (Exception e) {
