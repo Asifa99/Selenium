@@ -24,7 +24,6 @@ public class Youtubevideo {
         try {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-            // Wait until the search box is visible and type the search term
             WebElement searchBox = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='search']")));
             searchBox.sendKeys("selenium tutorial");
 
