@@ -9,3 +9,4 @@ public class SeleniumTutorial {
         driver.manage().window().maximize();
     }
 }
+//new
