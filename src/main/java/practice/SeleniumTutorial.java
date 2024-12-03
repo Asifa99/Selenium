@@ -14,7 +14,7 @@ public class SeleniumTutorial {
     private static String searchtext;
     private static String firstvideoxpath;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         Properties properties = new Properties();
         //try to run code section,if there is any error, it goes to catch section.
         //config.properties file load set as a string in input variable.
@@ -38,21 +38,33 @@ public class SeleniumTutorial {
             e.printStackTrace();
             return;
         }
-        //Debug prints to verify property loading
-        System.out.println(youtubeURL);
-        System.out.println(searchboxxpath);
-        System.out.println(searchtext);
-        System.out.println(firstvideoxpath);
 
         WebDriver driver = new ChromeDriver();
 
         driver.get(youtubeURL);
-        driver.manage().window().maximize();
+        Thread.sleep(1000);
 
+        driver.manage().window().maximize();
+        Thread.sleep(1000);
         WebElement searchBox = driver.findElement(By.xpath(searchboxxpath));
-        System.out.println(searchBox);
         searchBox.sendKeys(searchtext);
         searchBox.submit();
+        Thread.sleep(2000);
+
+        WebElement filterBtn = driver.findElement(By.xpath("//div[@id='filter-button']"));
+        filterBtn.click();
+        Thread.sleep(2000);
+
+        WebElement videoFilter = driver.findElement(By.xpath("//div[@id='label' and @title='Search for Video']"));
+        videoFilter.click();
+        Thread.sleep(2000);
+
+        filterBtn.click();
+        Thread.sleep(2000);
+
+        WebElement filterMin=driver.findElement(By.xpath("//div[@id='label' and @title='Search for Over 20 minutes']"));
+        filterMin.click();
+        Thread.sleep(2000);
 
         WebElement firstVideo = driver.findElement(By.xpath(firstvideoxpath));
         firstVideo.click();
