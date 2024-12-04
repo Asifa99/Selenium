@@ -1,18 +1,12 @@
 package practice;
 
-import org.openqa.selenium.By;
-import java.time.Duration;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-
 import java.util.Properties;
 import java.io.InputStream;
 
 public class SeleniumTutorial {
-    private static String youtubeURL;
     private static String searchboxxpath;
     private static String searchtext;
     private static String firstvideoxpath;
@@ -29,6 +23,7 @@ public class SeleniumTutorial {
         //config.properties file load set as a string in input variable.
         // files always load as a string by default.
 
+        String youtubeURL;
         try (InputStream input = SeleniumTutorial.class.getClassLoader().getResourceAsStream("config.properties")) {
             //error handling
             if (input == null) {
@@ -48,37 +43,32 @@ public class SeleniumTutorial {
             sortbydropdown=properties.getProperty("sort.by.dropdown");
             uploaddateoption=properties.getProperty("upload.date.option");
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception e) { //used to access information about the exception.
+            e.printStackTrace(); //stack trace provides information about where the exception occurred
             return;
         }
 
         WebDriver driver = new ChromeDriver();
 
         driver.get(youtubeURL);
-        Thread.sleep(1000);
-
+        waits.waitForPageToLoad(driver, 10);
         driver.manage().window().maximize();
-        Thread.sleep(1000);
-        WebElement searchBox = driver.findElement(By.xpath(searchboxxpath));
+
+        WebElement searchBox = waits.waitForElementToBeClickable(driver, searchboxxpath, 10);
         searchBox.sendKeys(searchtext);
         searchBox.submit();
-        Thread.sleep(2000);
+        waits.waitForPageToLoad(driver, 10);
 
-        WebElement filterBtn = driver.findElement(By.xpath(filterbuttonxpath));
+        WebElement filterBtn = waits.waitForElementToBeClickable(driver, filterbuttonxpath, 10);
         filterBtn.click();
-        Thread.sleep(2000);
 
-        WebElement videoFilter = driver.findElement(By.xpath(videofilterbutton));
+        WebElement videoFilter = waits.waitForElementToBeClickable(driver, videofilterbutton, 10);
         videoFilter.click();
-        Thread.sleep(2000);
 
         filterBtn.click();
-        Thread.sleep(2000);
 
-        WebElement filterMin=driver.findElement(By.xpath(filtermin));
+        WebElement filterMin = waits.waitForElementToBeClickable(driver, filtermin, 10);
         filterMin.click();
-        Thread.sleep(2000);
 
 //        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 //
@@ -93,9 +83,9 @@ public class SeleniumTutorial {
 //        WebElement uploadDateOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(uploaddateoption)));
 //        uploadDateOption.click();
 
-        WebElement firstVideo = driver.findElement(By.xpath(firstvideoxpath));
+        WebElement firstVideo = waits.waitForElementToBeClickable(driver, firstvideoxpath, 10);
         firstVideo.click();
-
+        waits.waitForPageToLoad(driver, 10);
 
     }
 }
