@@ -1,5 +1,6 @@
 package practice;
 
+import dev.failsafe.internal.util.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -7,6 +8,8 @@ import java.util.Properties;
 import java.io.InputStream;
 
 public class SeleniumTutorial {
+
+    private static String youtubeurl;
     private static String searchboxxpath;
     private static String searchtext;
     private static String firstvideoxpath;
@@ -19,11 +22,11 @@ public class SeleniumTutorial {
 
     public static void main(String[] args) throws InterruptedException {
         Properties properties = new Properties();
+
         //try to run code section,if there is any error, it goes to catch section.
         //config.properties file load set as a string in input variable.
         // files always load as a string by default.
 
-        String youtubeURL;
         try (InputStream input = SeleniumTutorial.class.getClassLoader().getResourceAsStream("config.properties")) {
             //error handling
             if (input == null) {
@@ -33,7 +36,7 @@ public class SeleniumTutorial {
             // string converted into key value pair.
             properties.load(input);
 
-            youtubeURL = properties.getProperty("youtube.url");
+            youtubeurl = properties.getProperty("youtube.url");
             searchboxxpath = properties.getProperty("search.box.xpath");
             searchtext = properties.getProperty("search.text");
             firstvideoxpath = properties.getProperty("first.video.xpath");
@@ -50,13 +53,14 @@ public class SeleniumTutorial {
 
         WebDriver driver = new ChromeDriver();
 
-        driver.get(youtubeURL);
+        driver.get(youtubeurl);
         waits.waitForPageToLoad(driver, 10);
         driver.manage().window().maximize();
 
         WebElement searchBox = waits.waitForElementToBeClickable(driver, searchboxxpath, 10);
         searchBox.sendKeys(searchtext);
         searchBox.submit();
+
         waits.waitForPageToLoad(driver, 10);
 
         WebElement filterBtn = waits.waitForElementToBeClickable(driver, filterbuttonxpath, 10);
@@ -74,9 +78,7 @@ public class SeleniumTutorial {
 //
 //        // Interact with Sort by Dropdown
 //        filterBtn.click();
-//        Thread.sleep(2000);
-//
-//        WebElement sortByDropdown = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(sortbydropdown)));
+//        WebElement sortByDropdown = waits.waitForElementToBeClickable(driver,sortbydropdown,10);
 //        sortByDropdown.click();
 //
 //        // Select "Upload date" from the dropdown
