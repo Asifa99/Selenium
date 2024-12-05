@@ -1,6 +1,5 @@
 package practice;
 
-import dev.failsafe.internal.util.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -57,6 +56,10 @@ public class SeleniumTutorial {
         waits.waitForPageToLoad(driver, 10);
         driver.manage().window().maximize();
 
+        String expectedTitle = "You"; // Example expected title
+        String actualTitle = driver.getTitle();
+        assert expectedTitle.equals(actualTitle) : "Title mismatch! Expected: " + expectedTitle + ", but got: " + actualTitle;
+
         WebElement searchBox = waits.waitForElementToBeClickable(driver, searchboxxpath, 10);
         searchBox.sendKeys(searchtext);
         searchBox.submit();
@@ -68,6 +71,7 @@ public class SeleniumTutorial {
 
         WebElement videoFilter = waits.waitForElementToBeClickable(driver, videofilterbutton, 10);
         videoFilter.click();
+        waits.waitForPageToLoad(driver, 10);
 
         filterBtn.click();
 
