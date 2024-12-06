@@ -53,7 +53,6 @@
             <version>5.7.1</version>
             <scope>test</scope>
         </dependency>
-
         <!-- JUnit Vintage Engine to run JUnit 3/4 tests -->
         <dependency>
             <groupId>org.junit.vintage</groupId>
